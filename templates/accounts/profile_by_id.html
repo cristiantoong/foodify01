@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+
+        <header>
+            
+       
+
+            {% if user_profile_by_id.profile_pic %}
+                <div class="cover"><img src="{{ user_profile_by_id.cover_photo.url }}" alt=""></div>
+            {% else %}
+                <div class="cover"><img src="{% static 'images/default1.png' %}" alt=""></div>
+            {% endif %}   
+            
+            
+
+            
+
+            <div class="row-2">
+
+                {% if user_profile_by_id.profile_pic %}
+                    <div class="profile-pic"><img src="{{ user_profile_by_id.profile_pic.url }}" alt=""></div>
+                {% else %}
+                    <div class="profile-pic"><img src="{% static 'images/default1.png' %}" alt=""></div>
+                {% endif %}  
+
+                <div class="profile-name">
+                    <h2>{{ user_profile_by_id.full_name }}</h2>
+                </div>
+
+                
+                {% if not request.user %}
+                <a href="#">Edit Profile</a>
+                {% else %}
+                <p></p>
+                {% endif %}
+                    
+                
+                
+                <div class="items">
+                    <div class="item-1">
+                    <h1>215</h1>
+                    <p>Photos</p>
+                    </div>
+                    <div class="item-1">
+                        <h1>215</h1>
+                        <p>Photos</p>
+                    </div>
+                    <div class="item-1">
+                        <h1>215</h1>
+                        <p>Photos</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+                
+                
+            
+        </header>
+
+        <div class="about">
+            <h1>About</h1>
+            <div class="main-about">
+                <h3>{{ user_profile_by_id.description }}</h3>
+                <p>Lives in {{ user_profile_by_id.city }}</p>
+                <p>My Website {{ user_profile_by_id.website }}</p>
+                <p>{{ user.phone }}</p>
+                <p>I joined {{ user_profile_by_id.date_joined }}</p>
+            </div>
+        </div>
+            
+       
+
+    
+
+
+{% endblock body %}

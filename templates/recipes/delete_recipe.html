@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+    
+   
+{% block body %}
+
+
+<p>Are you sure you want to delete "{{ recipe }}"?</p>
+<form action="{% url 'recipes:delete_recipe' recipe.id %}" method="POST">
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'recipes:recipe_user_view' recipe.id %}">Cancel</a>
+    <input class="btn btn-danger" type="submit" name="confirm">
+</form>
+
+{% endblock body %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Foodify</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+     <!-- Medium Style Editor -->
+     <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+
+   
+   
+
+ 
+  </head>
+  <body>
+
+    <nav>
+      <div class="logo">
+        <h1><a href="{% url 'recipes:home' %}"> Foodify</a></h1>
+      </div>
+      <ul class="main-nav">
+        
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'recipes:home' %}">Home</a></li>
+          <li><a href="{% url 'recipes:recipes_view' %}">Recipes</a></li>
+          <li><a href="{% url 'recipes:create_recipe' %}">Create Recipe</a></li>
+          
+
+          {% if request.user.userprofile.is_active %}
+            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+          {% endif %}
+          
+          <li><a href="#">Categories</a></li>
+          <li><a href="{% url 'accounts:logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{% url 'recipes:home' %}">Home</a></li>
+        <li><a href="{% url 'accounts:login' %}">Sign In</a></li>
+        <li><a href="{% url 'accounts:register' %}">Sign Up</a></li>
+        {% endif %}
+          
+        
+        
+        
+        
+      </ul>
+    </nav>
+
+      
+
+    <div class="container">
+      {% block body %}
+      
+      {% endblock body %}
+
+    </div>
+
+    <!-- <footer>
+      <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+    <p class="text-muted">Developed by: Cristian To-ong</p>
+    </footer> -->
+    
+      
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
+

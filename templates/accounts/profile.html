@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+
+        <header>
+            
+            {% for user in user_profile %}
+
+            {% if user.profile_pic %}
+                <div class="cover"><img src="{{ user.cover_photo.url }}" alt=""></div>
+            {% else %}
+                <div class="cover"><img src="{% static 'images/default1.png' %}" alt=""></div>
+            {% endif %}    
+
+            
+
+            <div class="row-2">
+
+                {% if user.profile_pic %}
+                    <div class="profile-pic"><img src="{{ user.profile_pic.url }}" alt=""></div>
+                {% else %}
+                    <div class="profile-pic"><img src="{% static 'images/default1.png' %}" alt=""></div>
+                {% endif %}  
+
+                <div class="profile-name">
+                    <h2>{{ user.full_name }}</h2>
+                </div>
+
+                <a href="{% url 'accounts:update_profile' %}">Edit Profile</a>
+                
+                <div class="items">
+                    <div class="item-1">
+                    <h1>215</h1>
+                    <p>Photos</p>
+                    </div>
+                    <div class="item-1">
+                        <h1>215</h1>
+                        <p>Photos</p>
+                    </div>
+                    <div class="item-1">
+                        <h1>215</h1>
+                        <p>Photos</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+                
+                
+            
+        </header>
+
+        <div class="about">
+            <h1>About</h1>
+            <div class="main-about">
+                <h3>{{ user.description }}</h3>
+                <p>Lives in {{ user.city }}</p>
+                <p>My Website {{ user.website }}</p>
+                <p>{{ user.phone }}</p>
+                <p>I joined {{ user.date_joined }}</p>
+            </div>
+        </div>
+            
+        {% endfor %}
+
+    
+
+
+{% endblock body %}

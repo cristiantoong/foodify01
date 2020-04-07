@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Create New Account</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'recipes:home' %}">Go back to Home Page</a>
+        </div>
+    </form>
+{% endblock body %}

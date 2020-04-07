@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+    <div class="recipes-nav">
+        <div class="intro">
+            <p><span class="welcome">Welcome</span> <span class="user">{{ request.user }}</span> </p>
+        </div>
+
+        {% if not request.user.userprofile.is_active %}
+            <div class="profile-notify">
+                <p><a href="{% url 'accounts:create_profile' %}">Create New Profile</a></p>
+            </div>
+          {% endif %}
+        
+    
+        <!-- <div class="view-profile"><a href="{% url 'accounts:register'%}">View Profile</a></div> -->
+
+    </div>
+    
+    <div class="recipes">
+        {% for recipe in recipes %} 
+        <div class="recipe">
+            
+            {% if recipe.photo %}
+            <div class="recipe-photo"><img src="{{ recipe.photo.url }}" alt=""></div>
+            {% else %}
+            <div class="recipe-photo"><img src="{% static 'images/default1.png' %}" alt=""></div>
+            {% endif %}
+
+            <div class="info">
+                <div class="recipe-name">
+                    <a href="{% url 'recipes:recipe_user_view' recipe.id %}">{{ recipe.name }}</a>
+                </div>
+                <div class="recipe-description">
+                    <p> {{ recipe.description|truncatechars:50 }}</p>
+                </div>
+
+                <div class="info-2">
+                    <div class="recipe-author-img"> <a href="#"><img src="{{ recipe.author.userprofile.profile_pic.url }}" alt=""></a> </div>
+                    <div class="recipe-author">
+                        <p>By: {{ recipe.author }} </p>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+    
+        
+
+
+{% endblock body %}
+    

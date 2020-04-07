@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}   
+   
+{% block body %}
+<a href="{% url 'recipes:home' %}"><img src="{% static 'images/arrow-back.png' %}" alt=""></a>
+<div>
+    <a class="btn btn-warning" href="{% url 'recipes:update_recipe' recipe.id %}">Update Recipe</a>
+    <a class="btn btn-danger" href="{% url 'recipes:delete_recipe' recipe.id %}">Delete Recipe</a>
+</div>
+<br>
+    <div class="recipe-detail-view">
+        <div class="recipe-detail">
+            <div class="recipe-photo-detail">
+                {% if recipe.photo %}
+                <img src="{{ recipe.photo.url }}" alt="">
+                {% else %}
+                <img src="{% static 'images/default1.png' %}" alt="">
+                {% endif %}
+            </div>
+            <div class="recipe-name-detail">
+                {{ recipe.name }}
+            </div>
+            <div class="recipe-description-detail">{{ recipe.description }}</div>
+            <div class="recipe-author-img-detail"></div>
+            <div class="recipe-author-detail">
+                <p>By: {{ request.user }} </p>
+            </div>
+            <!-- <div class="recipe-ingredients-detail">
+                <h3>Ingredients of {{ recipe.name }}: </h3>
+                    {% if ingredients %}
+                    <p>{{ ingredients| linebreaks}}</p>
+                    {% else %}
+                    <p>No Ingredients</p> 
+                    {% endif %}
+            </div>
+            <div class="recipe-instructions-detail">
+                <h3>Instructions:</h3>
+                <p>{{ instructions| linebreaks}}</p>
+            </div> -->
+            <div class="recipe-instructions-detail">
+                <p>{{ recipe.content|safe}}</p>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+    
+
+
+
+{% endblock body %}
