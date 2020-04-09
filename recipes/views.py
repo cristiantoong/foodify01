@@ -39,17 +39,16 @@ def recipe_view(request, pk):
     # ingredients = recipe.ingredients
     # instructions = recipe.instructions
     comment_form = CommentForm(request.POST or None)
-    user_profile = UserProfile.objects.filter(profile_name=request.user)
+    user_profile = UserProfile.objects.filter(profile_name=recipe.author)
 
 
-    comment = Comment.objects.filter(user=request.user)
+    comment = Comment.objects.filter(user=recipe.author)
 
     if request.method == 'POST':
         if comment_form.is_valid():
             comment_form.instance.user = request.user
             comment_form.instance.post = recipe
             comment_form.save()
-            #return redirect('recipes:recipe_view')
             return redirect('recipes:recipe_view', pk=recipe.pk)
     
     context = {
@@ -65,11 +64,22 @@ def recipe_view(request, pk):
 @login_required
 def recipe_user_view(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
+    comment_form = CommentForm(request.POST or None)
     # ingredients = recipe.ingredients
     # instructions = recipe.instructions
     
+    comment = Comment.objects.filter(user=recipe.author)
+
+    if request.method == 'POST':
+        if comment_form.is_valid():
+            comment_form.instance.user = request.user
+            comment_form.instance.post = recipe
+            comment_form.save()
+            return redirect('recipes:recipe_user_view', pk=recipe.pk)
+
     context = {
         'recipe': recipe,
+        'comment_form': comment_form,
         # 'ingredients': ingredients,
         # 'instructions': instructions,
         }

@@ -12,12 +12,11 @@
 
         {% if not request.user.userprofile.is_active %}
             <div class="profile-notify">
-                <p><a href="{% url 'accounts:create_profile' %}">Create New Profile</a></p>
+                <p><a href="{% url 'accounts:create_profile' %}">Create Profile</a></p>
             </div>
           {% endif %}
         
-    
-        <!-- <div class="view-profile"><a href="{% url 'accounts:register'%}">View Profile</a></div> -->
+
 
     </div>
     

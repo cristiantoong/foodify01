@@ -45,36 +45,22 @@
             <section class="comments">
                 <h4>Post Comments <span class="no-of-comments">({{ recipe.comments.count }})</span></h4>
 
+                {% if user.is_authenticated %}
                 <form action="." method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ comment_form|crispy }}
                     <button class="btn btn-info" type="submit">Submit comment</button>
                 </form>
-
+                
+                 
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-info btn-block">Login to Comment</a>
+                {% endif %}
 
                 {% for comment in recipe.get_comments %}
                     <div class="user-comments mt-5">
                         <div class="left-info mr-4">
-
-                            <!-- {% if comment.user.author %}
-                              <img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="img-fluid rounded-circle">
-                            {% else %}
-                              <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle">
-                            {% endif %} -->
-                            <!-- recipe.author.userprofile.profile_pic.url-->
-                            <!-- comment.user.userprofile.profile_picture.url -->
-                                
-                                <!-- {% if request.user %}
-                                <img src="{{ comment_user_pic }}" alt="">
-                                {% else %}
-                                <img src="{{ recipe.author.userprofile.profile_pic.url }}" alt="">
-                                {% endif %} -->
-
-                                <!-- recipe.author.userprofile.profile_pic.url -->
-                                <!-- comm.user.userprofile.profile_pic.url -->
-                                    
-
-                                    <img src="{{ comment.user.userprofile.profile_pic.url }}" alt="">
+                            <img src="{{ comment.user.userprofile.profile_pic.url }}" alt="">
 
                         </div>
                         <div class="right-info">
@@ -83,14 +69,13 @@
                             <p class="comment-content">{{ comment.content | safe }}</p>
                         </div>
                     </div>
-                {% endfor %}
-                
-                
-                
+                {% endfor %}   
+
                 
             </section>
     
-    
+    </div>
+    </div>
 
 
     

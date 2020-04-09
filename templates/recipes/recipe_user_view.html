@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}   
+{% load crispy_forms_tags %}
    
 {% block body %}
 <a href="{% url 'recipes:home' %}"><img src="{% static 'images/arrow-back.png' %}" alt=""></a>
@@ -40,6 +41,34 @@
             <div class="recipe-instructions-detail">
                 <p>{{ recipe.content|safe}}</p>
             </div>
+
+            <!-- Comment Section -->
+            <section class="comments">
+                <h4>Post Comments <span class="no-of-comments">({{ recipe.comments.count }})</span></h4>
+
+                <form action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <button class="btn btn-info" type="submit">Submit comment</button>
+                </form>
+
+
+                {% for comment in recipe.get_comments %}
+                    <div class="user-comments mt-5">
+                        <div class="left-info mr-4">
+                            <img src="{{ comment.user.userprofile.profile_pic.url }}" alt="">
+
+                        </div>
+                        <div class="right-info">
+                            <h5 class="comment-user">{{ comment.user.username }}</h5>
+                            <p class="comment-date text-muted">{{ comment.timestamp|timesince }} ago</p>
+                            <p class="comment-content">{{ comment.content | safe }}</p>
+                        </div>
+                    </div>
+                {% endfor %}    
+            </section>
+
+
         </div>
     </div>
     
