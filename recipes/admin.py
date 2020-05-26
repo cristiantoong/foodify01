@@ -1,5 +1,5 @@
 from django.contrib import admin
-from recipes.models import Recipe, Comment
+from recipes.models import Recipe, Comment, Like
 from accounts.models import UserProfile
 
 
@@ -11,6 +11,7 @@ from accounts.models import UserProfile
 admin.site.register(Recipe)
 admin.site.register(Comment)
 admin.site.register(UserProfile)
+admin.site.register(Like)
 
 
 

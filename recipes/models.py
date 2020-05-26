@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.shortcuts import reverse
 
 from ckeditor.fields import RichTextField
 
@@ -22,10 +22,21 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
     
+    def get_like_url(self):
+        return reverse('like_recipe', kwargs={
+            'id': self.id
+        })
+    
     # get all the comments related to the post
     @property
     def get_comments(self):
         return self.comments.all().order_by('-timestamp')
+    
+    @property
+    def get_like_count(self):
+        return self.like_set.all().count()
+
+
 
 
 class Comment(models.Model):
@@ -33,6 +44,14 @@ class Comment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     post = models.ForeignKey(Recipe, related_name='comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username

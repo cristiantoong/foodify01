@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from .models import Recipe, Comment
+from .models import Recipe, Comment, Like
 from django.shortcuts import get_object_or_404
 from .forms import RecipeForm, CommentForm
 from django.contrib.auth.decorators import login_required
@@ -17,7 +17,6 @@ def home(request):
     
     context = {
         'recipes': recipes,
-        #'has_profile': has_profile,
         }
     return render(request, 'recipes/index.html', context)
 
@@ -133,6 +132,33 @@ def delete_recipe(request, pk):
     return render(request, 'recipes/delete_recipe.html', context)
 
 
+# increase the like count
+@login_required
+def like(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    like_qs = Like.objects.filter(user=request.user, recipe=recipe)
 
 
+
+    if like_qs.exists():
+        like_qs[0].delete()
+        return redirect('recipe_view', pk=pk)
+    else:
+        Like.objects.create(user=request.user, recipe=recipe)
+        return redirect('recipe_view', pk=pk)
+    
+    return render(request, 'recipes/recipe_view.html')
+
+    # #if already liked the post
+    # if like_qs.exists():
+
+    #     # unlike the post
+    #     like_qs[0].delete()
+    #     return redirect('recipes:recipe_view', pk=pk)
+
+    # # like the post
+    # Like.objects.create(user=request.user, recipe=recipe)
+    # return redirect('recipes:recipe_view', pk=pk)
+
+    
 

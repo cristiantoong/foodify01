@@ -43,6 +43,9 @@
             
             <!-- Comment Section -->
             <section class="comments">
+                <br>
+                <a class="text-muted" href="{% url 'recipes:recipe_view' recipe.id %}"><i class="fa fa-thumbs-up fa-lg mr-2"></i>{{ recipe.get_like_count }}</a>
+                <hr>
                 <h4>Post Comments <span class="no-of-comments">({{ recipe.comments.count }})</span></h4>
 
                 {% if user.is_authenticated %}
@@ -56,17 +59,19 @@
                 {% else %}
                     <a href="{% url 'accounts:login' %}" class="btn btn-info btn-block">Login to Comment</a>
                 {% endif %}
-
+                
                 {% for comment in recipe.get_comments %}
                     <div class="user-comments mt-5">
                         <div class="left-info mr-4">
                             <img src="{{ comment.user.userprofile.profile_pic.url }}" alt="">
 
                         </div>
+                       
                         <div class="right-info">
                             <h5 class="comment-user">{{ comment.user.username }}</h5>
                             <p class="comment-date text-muted">{{ comment.timestamp|timesince }} ago</p>
                             <p class="comment-content">{{ comment.content | safe }}</p>
+                            <hr>
                         </div>
                     </div>
                 {% endfor %}   

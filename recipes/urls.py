@@ -12,6 +12,8 @@ urlpatterns = [
     path('update_recipe/<str:pk>/', views.update_recipe, name='update_recipe'),
     #path('update_recipe_test/<str:pk>/', views.update_recipe_test, name='update_recipe_test'),
     path('delete_recipe/<str:pk>/', views.delete_recipe, name='delete_recipe'),
+    path('like/<str:pk>/', views.like, name='like_recipe'),
+    
 
     
 ]
